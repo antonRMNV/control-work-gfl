@@ -172,6 +172,7 @@ public class Controller {
                 .forEach(m -> System.out.print(m.getId() + "-" + m.getName() + "; "));
         System.out.print("\n⇢ Enter ID of manufacturer you want to change: ");
         int id = scanner.nextInt();
+
         if(isManufacturerExist(id)) {
             System.out.print("⇢ Enter new information about manufacturer:\n\tName: ");
             scanner.nextLine();
@@ -194,6 +195,7 @@ public class Controller {
                 .forEach(s -> System.out.print(s.getId() + "-" + s.getName() + "; "));
         System.out.print("\n⇢ Enter ID of souvenir you want to change: ");
         int id = scanner.nextInt();
+
         if(isSouvenirExist(id)) {
             System.out.print("⇢ Enter new information about souvenir:\n\tName: ");
             scanner.nextLine();
@@ -237,11 +239,14 @@ public class Controller {
     private void viewSouvenirsByManufacturer() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("↱ Available manufacturers: ");
+
         manufacturers.stream()
                 .sorted(Comparator.comparing(Manufacturer::getId))
                 .forEach(m -> System.out.print(m.getId() + "-" + m.getName() + "; "));
+
         System.out.print("\n⇢ To find souvenirs by manufacturer enter his id: ");
         int id = scanner.nextInt();
+
         if(isManufacturerExist(id)) {
             List<Souvenir> souvenirsByManufacturer = getSouvenirsByManufacturer(id);
             souvenirsByManufacturer.forEach(System.out::println);
@@ -254,9 +259,11 @@ public class Controller {
         Scanner scanner = new Scanner(System.in);
         System.out.print("↱ Available countries: ");
         Set<String> countryName = new HashSet<>();
+
         for(Manufacturer m : manufacturers) {
             countryName.add(m.getCountry());
         }
+
         countryName.stream()
                 .sorted()
                 .forEach(cn -> System.out.print(cn + "; "));
@@ -272,6 +279,7 @@ public class Controller {
         int price = scanner.nextInt();
 
         List<Souvenir> souvenirsLessPrice = souvenirs.stream().filter(s -> s.getPrice() < price).toList();
+
         for(Manufacturer m: manufacturers) {
             for(Souvenir s: souvenirsLessPrice) {
                 if(s.getManufacturerId() == m.getId()) {
@@ -280,8 +288,6 @@ public class Controller {
                 }
             }
         }
-
-
     }
 
 
